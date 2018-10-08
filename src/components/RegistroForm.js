@@ -137,7 +137,6 @@ class RegistroForm extends Component {
 								<label htmlFor="domicilio">Domicilio</label>
 								<input type="text" className="form-control" id="domicilio" name="domicilio" placeholder="Domicilio" value={form.domicilio} onChange={this.handleChange} maxLength="100" />
 							</div>
-
 							<div className="form-row">
 								<div className="col">
 									<div className="form-group">
@@ -162,19 +161,16 @@ class RegistroForm extends Component {
 									</div>
 								</div>
 							</div>
-
 							<div className="form-group">
 								<label htmlFor="mail">Email</label>
 								<input type="email" className="form-control" id="mail" name="mail" placeholder="mimail@miserver.com" value={form.mail} onChange={this.handleChange} maxLength="50" />
 							</div>
-
 							<div className="form-group">
 								<label htmlFor="idcomision">Comisión</label>
 								<select className="form-control" id="idcomision" name="idcomision" value={form.idcomision} onChange={this.handleChange}>
 									{ comisiones }
 								</select>
 							</div>
-
 							<div className="form-group">
 								<label htmlFor="idreferente">Referente</label>
 								<select className="form-control" id="idreferente" name="idreferente" value={form.idreferente} onChange={this.handleChange}>
@@ -185,7 +181,6 @@ class RegistroForm extends Component {
 								<button className="btn btn-dark" onClick={this.handleFormCancel}>Cancelar</button>
 								<button type="submit" className="btn btn-primary">Aceptar</button>
 							</div>
-							
 						</form>
 					</div>
 				</div>

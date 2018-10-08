@@ -14,11 +14,20 @@ class App extends Component {
 		this.state = {
 			encontrado: false,
 			registrarse: false,
-			dni: ""
+			dni: "",
+			integrante: {}
 		}
 		this.handleRegistro = this.handleRegistro.bind(this);
 		this.handleCancelForm = this.handleCancelForm.bind(this);
 		this.handleOkForm = this.handleOkForm.bind(this);
+		this.handleOkDni = this.handleOkDni.bind(this);
+	}
+
+	handleOkDni(data) {
+		console.log(data);
+		this.setState({
+			integrante: data
+		});
 	}
 
 	handleRegistro() {
@@ -42,23 +51,28 @@ class App extends Component {
 	}
 
 	render() {
-		const {registrarse} = this.state;
+		const { encontrado, registrarse } = this.state;
 		return(
 			<React.Fragment>
 				<Navbar />
 				{
-					registrarse ?
-					<RegistroForm onCancel={this.handleCancelForm} onOk={this.handleOkForm} />
+					encontrado ?
+					<div>Bienvenido {this.state.integrante.apellido} {this.state.integrante.apellido}</div>
 					:
 					<React.Fragment>
-						<DniForm />
-						<div className="container mt-3">
-							<div className="row justify-content-center">
-								<div className="col-sm-12 col-md-4 d-flex justify-content-center">
-									<button className="btn btn-dark" onClick={this.handleRegistro}>Soy nuevo, deseo sumarme.</button>
+						registrarse ?
+						<RegistroForm onCancel={this.handleCancelForm} onOk={this.handleOkForm} />
+						:
+						<React.Fragment>
+							<DniForm onOkDni={this.handleOkDni} />
+							<div className="container mt-3">
+								<div className="row justify-content-center">
+									<div className="col-sm-12 col-md-4 d-flex justify-content-center">
+										<button className="btn btn-dark" onClick={this.handleRegistro}>Quiero sumarme al equipo!</button>
+									</div>
 								</div>
 							</div>
-						</div>
+						</React.Fragment>
 					</React.Fragment>
 				}
 				<Pie />

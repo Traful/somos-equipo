@@ -7,7 +7,7 @@ const Leyenda = (props) => {
 			<p>Lo sentimos mucho, no encotramos tu DNI ({props.dni}) en nuestros registros.</p>
 			<p>Fijate si está escrito correctamente.</p>
 			<p>Si es la primera vez que ingresas te invitamos a ser parte del equipo dando click en el botón:</p>
-			<p><strong><i>Soy nuevo, deseo sumarme</i></strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i className="fas fa-arrow-down"></i></p>
+			<p><strong><i>Quiero sumarme al equipo!</i></strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i className="fas fa-arrow-down"></i></p>
 		</div>
 	);
 }
@@ -39,9 +39,27 @@ class DniForm extends Component {
 		this.setState({
 			buscando: true
 		}, () => {
-			//fetch(`${hh}`)
-			this.setState({
-				leyenda: true
+			fetch(`${process.env.REACT_APP_API_HOST}/integrantes/dni/${this.state.dni}`, {
+				method: 'GET',
+				headers: {
+					"Authorization": "asdssffsdff",
+					"Content-Type": "application/json"
+				},
+			})
+			.then(res => res.json())
+			.then((result) => {
+				if(!result.err) {
+					if(parseInt(result.data.count) > 0) {
+						this.props.onOkDni(result.data.registros);
+					} else {
+						this.setState({
+							leyenda: true
+						});
+					}
+				} else {
+					console.log("Error!");
+				}
+			}, (error) => { //???
 			});
 		});
 	}
@@ -51,7 +69,7 @@ class DniForm extends Component {
 		return (
 			<div className="container">
 				<div className="row justify-content-center">
-					<div className="col-sm-12 col-md-4">
+					<div className="col-sm-12 col-md-6 col-lg-4 col-xl-3">
 						<form onSubmit={this.handleSubmit}>
 							<div className="d-flex">
 								<label htmlFor="dni" className="mr-4 pt-2">DNI:</label>
